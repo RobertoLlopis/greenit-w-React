@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import FormCheck from './FormCheck';
@@ -7,7 +7,7 @@ import FormRegion from './FormRegion';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		height: '70vh',
+		height: '40vh',
 		width: '100vw',
 		display: 'flex',
 		justifyContent: 'center',
@@ -27,26 +27,18 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Form() {
+export default function Form(props) {
 	const classes = useStyles();
 	/* const [
 		alimentos,
 		setAlimentos
 	] = useFormDisplay(Alimentos); */
-	const [
-		selection,
-		setSelection
-	] = useState({ region: '', dieta: '', alergenos: [] });
-	console.log(selection);
-	function handleSelection(chosen, formPart) {
-		setSelection({ ...selection, [formPart]: chosen });
-	}
-
+	const { handleSelection, selection } = props;
 	return (
 		<div className={classes.root}>
 			<span className={classes.select}>
 				<FormDieta handleSelection={handleSelection} />
-				<FormRegion handleSelection={handleSelection} />
+				<FormRegion selection={selection} handleSelection={handleSelection} />
 			</span>
 			<span className={classes.check} />
 			<FormCheck handleSelection={handleSelection} />

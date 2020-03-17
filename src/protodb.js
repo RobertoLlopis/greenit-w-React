@@ -1752,37 +1752,34 @@ export const db1 = {
 		{ MEL: 'Melilla' }
 	]
 };
-const alergenos = db1.alergenos.map((a) =>
-	a.replace(regExpFirst, a[0].toUpperCase()).replace(regExpUnder, ' ')
-);
-const dietas = db1.dietas.map((a) =>
-	a.replace(regExpFirst, a[0].toUpperCase()).replace(regExpUnder, ' ')
-);
-const regionesArr = [
-	`Madrid`,
-	`Cataluña`,
-	`Castilla La Mancha`,
-	`Valencia`,
-	`Islas Baleares`,
-	`Islas Canarias`,
-	`Extremadura`,
-	`Murcia`,
-	`Andalucia`,
-	`Castilla y León`,
-	`Principado de Asturias`,
-	`Galicia`,
-	`Cantabria`,
-	`Páis Vasco`,
-	`La Rioja`,
-	`Aragón`,
-	`Navarra`,
-	`Ceuta`,
-	`Melilla`
-];
 
 export const db2 = {
-	alergenos,
-	dietas,
-	regionesArr,
+	alergenos: db1.alergenos.map((a) =>
+		a.replace(regExpFirst, a[0].toUpperCase()).replace(regExpUnder, ' ')
+	),
+	dietas: db1.dietas.map((a) =>
+		a.replace(regExpFirst, a[0].toUpperCase()).replace(regExpUnder, ' ')
+	),
+	regionesArr: [
+		`Madrid`,
+		`Cataluña`,
+		`Castilla La Mancha`,
+		`Valencia`,
+		`Islas Baleares`,
+		`Islas Canarias`,
+		`Extremadura`,
+		`Murcia`,
+		`Andalucia`,
+		`Castilla y León`,
+		`Principado de Asturias`,
+		`Galicia`,
+		`Cantabria`,
+		`Páis Vasco`,
+		`La Rioja`,
+		`Aragón`,
+		`Navarra`,
+		`Ceuta`,
+		`Melilla`
+	],
 	regiones: db1.regiones
 };

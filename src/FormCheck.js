@@ -18,18 +18,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormCheck(props) {
 	const classes = useStyles();
+	const { handleSelection } = props;
 	const [
 		alerg,
 		setAlerg
 	] = useFormDisplay('alergenos');
-	console.log(alerg);
-	var chosen = Object.keys(alerg).filter((a) => alerg[a] === true);
+	useEffect(
+		() => {
+			let chosen = alerg.alergenos.filter((a) => alerg[a] === true);
+			handleSelection(chosen, 'alergenos');
+			// eslint-disable-next-line
+		},
+		[
+			alerg
+		]
+	);
 	const handleChange = (name) => (event) => {
-		let check = event.target.checked;
-		setAlerg({ ...alerg, [name]: check });
-		props.handleSelection(chosen, 'alergenos');
+		setAlerg({ ...alerg, [name]: event.target.checked });
 	};
-	console.log(alerg);
+
 	return (
 		<FormControl
 			component="fieldset"

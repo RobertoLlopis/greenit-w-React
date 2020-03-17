@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormSelect(props) {
 	const classes = useStyles();
+	const { selection } = props;
 	const [
 		regiones,
 		setRegion
@@ -36,7 +37,7 @@ export default function FormSelect(props) {
 				<Select
 					labelId="selectRegion"
 					id="selectRegion"
-					value={regiones.chosen ? regiones.chosen : ''}
+					value={regiones.chosen ? regiones.chosen : selection.region}
 					onChange={handleChangeR}
 				>
 					{regiones.regionesArr.map((r) => (
