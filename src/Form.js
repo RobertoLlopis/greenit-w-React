@@ -29,10 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Form(props) {
 	const classes = useStyles();
-	/* const [
-		alimentos,
-		setAlimentos
-	] = useFormDisplay(Alimentos); */
 	const { handleSelection, selection } = props;
 	return (
 		<div className={classes.root}>

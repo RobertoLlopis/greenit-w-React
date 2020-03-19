@@ -5,28 +5,23 @@ import Navbar from './Navbar';
 import Form from './Form';
 import ResultList from './ResultList';
 
-
-
-import useSelectionSet from './hooks/useSelectionSet';
-
 import './App.css';
-
 
 function App() {
 	const [
 		selection,
 		setSelection
-	] = useState({ region: '', dieta: '', alergenos: [] });
+	] = useState({ region: '', dieta: '', alergenos: [], temp: new Date().getMonth() + 1 });
 
 	console.log(selection);
-	
+	console.log(new Date().getMonth() + 1)
+
 	function handleSelection(chosen, formPart) {
 		setSelection({ ...selection, [formPart]: chosen });
 	}
 	autoRegion(handleSelection);
 
-	let selectionDieta = useSelectionSet(selection, 'dieta');
-	let selectionRegion = useSelectionSet(selection, 'region');
+	
 
 	return (
 		<>
@@ -35,8 +30,8 @@ function App() {
 			<span className="mainForm">
 				<Form selection={selection} handleSelection={handleSelection}/>
 			</span>
-			<div style={{width: '100%'}}>
-				<ResultList />
+			<div style={{width: '30%'}}>
+				<ResultList selection={selection} />
 			</div>
 		</div>
 		</>

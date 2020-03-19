@@ -1,7 +1,4 @@
 import { db1 } from './protodb';
-/* currentTime = new Date();
-    currentMonth = currentTime.getMonth() + 1;
-    console.log(currentMonth); */
 export function autoRegion(handleSelection) {
 	window.addEventListener('load', () => {
 		const proxy = 'https://cors-anywhere.herokuapp.com/';
@@ -18,4 +15,99 @@ export function autoRegion(handleSelection) {
 				handleSelection(arr[0], 'region');
 			});
 	});
+}
+function changeRegionData(selectionRegion) {
+	let dbRegion = '';
+	switch (selectionRegion) {
+		case 'Madrid':
+			dbRegion = 'MA';
+			break;
+		case 'Cataluña':
+			dbRegion = 'CA';
+			break;
+		case 'Castilla La Mancha':
+			dbRegion = 'CLM';
+			break;
+		case 'Valencia':
+			dbRegion = 'VLC';
+			break;
+		case 'Islas Baleares':
+			dbRegion = 'BL';
+			break;
+		case 'Islas Canarias':
+			dbRegion = 'CI';
+			break;
+		case 'Extremadura':
+			dbRegion = 'EXT';
+			break;
+		case 'Murcia':
+			dbRegion = 'MUR';
+			break;
+		case 'Andalucía':
+			dbRegion = 'AND';
+			break;
+		case 'Castilla y León':
+			dbRegion = 'CYL';
+			break;
+		case 'Principado de Asturias':
+			dbRegion = 'AST';
+			break;
+		case 'Galicia':
+			dbRegion = 'GAL';
+			break;
+		case 'Cantabria':
+			dbRegion = 'CAN';
+			break;
+		case 'País Vasco':
+			dbRegion = 'PV';
+			break;
+		case 'La Rioja':
+			dbRegion = 'LR';
+			break;
+		case 'Aragón':
+			dbRegion = 'ARG';
+			break;
+		case 'Navarra':
+			dbRegion = 'NAV';
+			break;
+		case 'Ceuta':
+			dbRegion = 'CEU';
+			break;
+		case 'Melilla':
+			dbRegion = 'MEL';
+			break;
+		default:
+			dbRegion = '';
+			break;
+	}
+	return dbRegion;
+}
+export function sort(selection, formPart) {
+	let foodIn = [];
+	foodIn = db1.alimentos
+		.filter((a) => a[formPart])
+		.filter((a) =>
+			a[formPart].includes(
+				typeof selection[formPart] === 'string'
+					? changeRegionData(selection[formPart])
+					: selection[formPart]
+			)
+		);
+	return foodIn.map((a) => a.nombre);
+}
+export function sortBool(dietaSet, alergSet) {
+	let foodIn = db1.alimentos
+		.filter(
+			(a) =>
+				dietaSet === 'ninguna'
+					? Object.keys(a)
+					: Object.keys(a).includes(dietaSet)
+		)
+		.filter((f) => !Object.keys(f).includes(alergSet[0]))
+		.filter((f) => !Object.keys(f).includes(alergSet[1]))
+		.filter((f) => !Object.keys(f).includes(alergSet[2]))
+		.filter((f) => !Object.keys(f).includes(alergSet[3]))
+		.filter((f) => !Object.keys(f).includes(alergSet[4]))
+		.filter((f) => !Object.keys(f).includes(alergSet[5]));
+	return foodIn.map((f) => f.nombre);
 }

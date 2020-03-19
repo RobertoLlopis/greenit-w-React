@@ -1,5 +1,5 @@
 const regExpFirst = /\w/;
-const regExpUnder = /_+/;
+const regExpUnder = /_/g;
 
 export const db1 = {
 	alergenos: [

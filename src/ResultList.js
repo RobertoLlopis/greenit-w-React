@@ -5,6 +5,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import {sort, sortBool} from './AppHelpers';
+import useSelectionSet from './hooks/useSelectionSet';
+
 
 const styles = {
 	root: {
@@ -24,21 +27,13 @@ const styles = {
 };
 
 export default withStyles(styles)(function ResultList(props) {
-	const { classes} = props;
-	const twe = [
-		1,
-		2,
-		3,
-		4,
-		5,
-		6,
-		7,
-		8,
-		9,
-		10,
-		11,
-		12
-	];
+	const { classes, selection} = props;
+	let regionFood = sort(selection, 'region');
+	let tempFood = sort(selection, 'temp');
+	let setDieta = useSelectionSet(selection, 'dieta');
+	let setAlerg = useSelectionSet(selection, 'alergenos');
+	let dietaFood = sortBool(setDieta, setAlerg);
+	console.log(setAlerg);
 	
 	
 	/* let ChosenDietas = db1.alimentos.filter(a => a.dieta === selection.dieta && true) */
@@ -46,16 +41,36 @@ export default withStyles(styles)(function ResultList(props) {
 		<div className={classes.root}>
 			<span >
 				<List>
-					{twe.map((n, i) => (
+					{dietaFood.map((n, i) => (
 						<>
 							<ListItem >
-								<ListItemText primary={`Jodete x ${i}`} />
+								<ListItemText primary={`${i + 1} ${n}`} />
 							</ListItem>
-							{i + 1 <= twe.length - 1 && <Divider />}
+							{i + 1 <= dietaFood.length - 1 && <Divider />}
 						</>
 					))}
 				</List>
 			</span>
+			<List>
+					{regionFood.map((n, i) => (
+						<>
+							<ListItem >
+								<ListItemText primary={`${i + 1} ${n}`} />
+							</ListItem>
+							{i + 1 <= regionFood.length - 1 && <Divider />}
+						</>
+					))}
+				</List>
+				<List>
+					{tempFood.map((n, i) => (
+						<>
+							<ListItem >
+								<ListItemText primary={`${i + 1} ${n}`} />
+							</ListItem>
+							{i + 1 <= tempFood.length - 1 && <Divider />}
+						</>
+					))}
+				</List>
 		</div>
 	);
 });
