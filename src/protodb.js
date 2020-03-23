@@ -682,7 +682,7 @@ export const db1 = {
 			]
 		},
 		{
-			nombre: 'Embutido (Jamón serrano, chorizo, jamón york, morcilla)',
+			nombre: 'Embutido (Jamón serrano, chorizo, etc.)',
 			mediterranea: true,
 			paleo: true,
 			fitness: true,
