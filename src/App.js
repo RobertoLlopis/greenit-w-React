@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Form from './Form';
 import ResultList from './ResultList';
 
+
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
 		<>
 		<div className="App">
 			<Navbar />
+
 			<span className="mainForm">
 				<Form selection={selection} handleSelection={handleSelection}/>
 			</span>

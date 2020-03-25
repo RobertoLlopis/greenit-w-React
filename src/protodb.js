@@ -1769,7 +1769,7 @@ export const db2 = {
 		`Islas Canarias`,
 		`Extremadura`,
 		`Murcia`,
-		`Andalucia`,
+		`Andalucía`,
 		`Castilla y León`,
 		`Principado de Asturias`,
 		`Galicia`,
