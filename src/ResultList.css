@@ -19,7 +19,9 @@
 	max-height: 400px;
 }
 .div-shoppingList {
-	width: 60%;
+	width: intrinsic; /* Safari/WebKit uses a non-standard name */
+	width: -moz-max-content; /* Firefox/Gecko */
+	width: -webkit-max-content; /* Chrome */
 	padding: 5px;
 	display: flex;
 	flex-direction: row;
@@ -30,6 +32,11 @@
 .list .list-shopping {
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+.list-shopping {
+	width: intrinsic; /* Safari/WebKit uses a non-standard name */
+	width: -moz-max-content; /* Firefox/Gecko */
+	width: -webkit-max-content; /* Chrome */
 }
 @media (max-width: 1150px) {
 	.root {
@@ -53,15 +60,17 @@
 		max-height: 250px;
 	}
 	.div-shoppingList {
-		width: 100%;
+		width: 96%;
 		padding: 5px;
 		max-height: 250px;
 		justify-content: flex-start;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 	.list-shopping {
-		overflow-y: scroll;
 		text-overflow: ellipsis;
-		width: 50%;
+		width: 90%;
 		white-space: break-spaces;
 	}
 	.list-header {

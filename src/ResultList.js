@@ -13,12 +13,12 @@ export default function ResultList(props) {
 	const [
 		makingList,
 	] = useContext(ProfileContext);
-
 	return (
 		<>
 		{makingList && <span className='list-header'>
-				<h3>Selecciona los alimentos para hacer tu próxima compra</h3>
-		</span>}
+				<h3>Selecciona los alimentos para hacer la lista de la compra</h3>
+				{selection.dieta === '' && <p>Debes seleccionar un tipo de dieta para poder mostrar tus alimentos personalizados</p>}
+		</span>} 
 		<div className="root">
 			{selection.dieta !== '' &&  <DietaList selection={selection} makingList={makingList} />}
 			{selection.region !== '' && !makingList ? <RegionList selection={selection} />: ''}
@@ -27,9 +27,3 @@ export default function ResultList(props) {
 		</>
 	);
 }
-/* import AlarmOnIcon from '@material-ui/icons/AlarmOn'; */
-/* import EventAvailableIcon from '@material-ui/icons/EventAvailable'; */
-/* import GradeIcon from '@material-ui/icons/Grade'; */
-/* import NearMeIcon from '@material-ui/icons/NearMe'; */
-/* import WhereToVoteIcon from '@material-ui/icons/WhereToVote'; */
-/* import StarIcon from '@material-ui/icons/Star'; */

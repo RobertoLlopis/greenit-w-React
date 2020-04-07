@@ -28,8 +28,9 @@ const GreenButton = withStyles({
 	}
 })((props) => <Button color="default" {...props} />);
 
-export default function ShoppingListButtoms() {
+export default function ShoppingListButtoms(props) {
 	const classes = useStyles();
+	const {selection} = props;
 	const [
 		makingList,
 		setMakingList
@@ -41,8 +42,8 @@ export default function ShoppingListButtoms() {
 	return (
 		<div className={classes.root}>
 			{makingList ? (
-				<span>
-					<Button
+				<span>{ selection.dieta !== '' &&
+					(<><Button
 						variant="contained"
 						size="medium"
 						color="primary"
@@ -58,7 +59,7 @@ export default function ShoppingListButtoms() {
 						onClick={toggleButtons}
 					>
 						Cancelar
-					</Button>
+					</Button></>)}
 				</span>
 			) : (
 				<GreenButton variant="outlined" size="large" onClick={toggleButtons}>

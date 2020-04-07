@@ -23,7 +23,7 @@ export default function Home(props) {
 				<Navbar />
 				<Form selection={selection} handleSelection={handleSelection} />
 				<ResultList selection={selection} />
-				<ShoppingListButtoms />
+				<ShoppingListButtoms selection={selection} />
 			</PageContent>
 		</ProfileProvider>
 	);
