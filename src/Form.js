@@ -11,20 +11,21 @@ const useStyles = makeStyles((theme) => ({
 		width: '100vw',
 		display: 'flex',
 		justifyContent: 'center',
-		alignItems: 'flex-start'
-	},
-	select: {
-		height: '30vh',
-		width: '10vw',
-		padding: '0',
+		alignItems: 'center',
+		[theme.breakpoints.down('xs')]: {
+			marginTop: '5%'
+		}
+	}
+
+	/* select: {
 		display: 'flex',
 		flexDirection: 'column',
-		justifyContent: 'center',
+
 		alignItems: 'center'
-	},
-	check: {
+	} */
+	/* check: {
 		width: '10vw'
-	}
+	} */
 }));
 
 export default function Form(props) {
@@ -36,8 +37,9 @@ export default function Form(props) {
 				<FormDieta handleSelection={handleSelection} />
 				<FormRegion selection={selection} handleSelection={handleSelection} />
 			</span>
-			<span className={classes.check} />
-			<FormCheck handleSelection={handleSelection} />
+			<span className={classes.check}>
+				<FormCheck handleSelection={handleSelection} />
+			</span>
 		</div>
 	);
 }

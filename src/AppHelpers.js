@@ -13,6 +13,11 @@ export function autoRegion(handleSelection) {
 				);
 				let arr = Object.values(idxOfData[0]);
 				handleSelection(arr[0], 'region');
+			})
+			.catch((error) => {
+				console.log(
+					'Hay un error en la petición de la ubicación. Error: ' + error
+				);
 			});
 	});
 }

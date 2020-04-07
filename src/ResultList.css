@@ -2,7 +2,6 @@
 	width: 100%;
 	background-color: #FFFF;
 	margin-top: 2rem;
-	position: absolute;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -12,23 +11,61 @@
 .list-div {
 	width: 30%;
 	padding: 10px;
-	white-space: nowrap;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-}
-.list {
+	justify-content: flex-start;
 	overflow-y: scroll;
-	text-overflow: ellipsis;
 	max-height: 400px;
 }
-@media (max-width: 1000px) {
+.div-shoppingList {
+	width: 60%;
+	padding: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	overflow-y: scroll;
+	max-height: 400px;
+}
+.list .list-shopping {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+@media (max-width: 1150px) {
+	.root {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.list-div {
+		white-space: normal;
+		max-height: 400px;
+	}
+}
+
+@media (max-width: 600px) {
 	.root {
 		flex-direction: column;
 		align-items: center;
+		margin-top: 0.5rem;
 	}
 	.list-div {
 		width: 90%;
+		max-height: 250px;
+	}
+	.div-shoppingList {
+		width: 100%;
+		padding: 5px;
+		max-height: 250px;
+		justify-content: flex-start;
+	}
+	.list-shopping {
+		overflow-y: scroll;
+		text-overflow: ellipsis;
+		width: 50%;
+		white-space: break-spaces;
+	}
+	.list-header {
+		width: 90%;
+		display: inline-block;
 	}
 }

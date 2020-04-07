@@ -1,42 +1,30 @@
 import React, { useState } from 'react';
-import {autoRegion} from './AppHelpers';
+import { withRouter, Route, Switch } from 'react-router';
+import { createBrowserHistory } from 'history';
 
-import Navbar from './Navbar';
-import Form from './Form';
-import ResultList from './ResultList';
-
-
-import './App.css';
+import Home from './Home';
+import MyProfile from './MyProfile';
 
 function App() {
 	const [
 		selection,
 		setSelection
-	] = useState({ region: '', dieta: '', alergenos: [], temp: new Date().getMonth() + 1 });
-
-	console.log(selection);
-	console.log(new Date().getMonth() + 1)
-
-	function handleSelection(chosen, formPart) {
-		setSelection({ ...selection, [formPart]: chosen });
-	}
-	autoRegion(handleSelection);
-
-	
+	] = useState({
+		region: '',
+		dieta: '',
+		alergenos: [],
+		temp: new Date().getMonth() + 1
+	});
 
 	return (
-		<>
-		<div className="App">
-			<Navbar />
-
-			<span className="mainForm">
-				<Form selection={selection} handleSelection={handleSelection}/>
-			</span>
-			<div style={{width: '30%'}}>
-				<ResultList selection={selection} />
-			</div>
-		</div>
-		</>
+		<Switch>
+			<Route exact path="/">
+				<Home selection={selection} setSelection={setSelection} />
+			</Route>
+			{/* <Route exact path="/myprofile">
+				<MyProfile selection={selection} />
+			</Route> */}
+		</Switch>
 	);
 }
 
