@@ -116,3 +116,6 @@ export function sortBool(dietaSet, alergSet) {
 		.filter((f) => !Object.keys(f).includes(alergSet[5]));
 	return foodIn.map((f) => f.nombre);
 }
+export function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min)) + min;
+}

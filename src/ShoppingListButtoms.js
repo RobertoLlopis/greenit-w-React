@@ -1,4 +1,4 @@
-import React, { useState,useContext, Fragment } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -31,82 +31,117 @@ const GreenButton = withStyles({
 
 export default function ShoppingListButtoms(props) {
 	const classes = useStyles();
-	const {selection} = props;
-	const [open, setOpen] = useState(false);
+	const { selection } = props;
+	const [
+		open,
+		setOpen
+	] = useState(false);
 	const [
 		makingList,
 		setMakingList,
 		personalList,
 		setPersonalList
 	] = useContext(ProfileContext);
-	const {shoppingList, savedList} = personalList;
-	const handleSave = () =>{
+	const { shoppingList, savedList } = personalList;
+	const handleSave = () => {
 		let newList = new Date();
 		if (savedList === undefined) {
-			setPersonalList({...personalList, savedList: [{[newList]: shoppingList}]});
-			window.localStorage.setItem('savedList', JSON.stringify([{[newList]: shoppingList}]));
-			setOpen(true)
+			setPersonalList({
+				...personalList,
+				savedList: [
+					[
+						newList,
+						shoppingList,
+						selection
+					]
+				]
+			});
+			window.localStorage.setItem(
+				'savedList',
+				JSON.stringify([
+					[
+						newList,
+						shoppingList,
+						selection
+					]
+				])
+			);
+			setOpen(true);
 		}
 		else {
-			savedList.push({[newList]: shoppingList});
-			setPersonalList({...personalList, savedList: savedList});
+			savedList.push([
+				newList,
+				shoppingList,
+				selection
+			]);
+			setPersonalList({ ...personalList, savedList: savedList });
 			window.localStorage.clear();
 			window.localStorage.setItem('savedList', JSON.stringify(savedList));
 			setOpen(true);
 		}
-		};	  
+		setMakingList(false);
+	};
 	const handleClose = () => {
 		setOpen(false);
-  };
+	};
 	const toggleButtons = () => {
 		setMakingList(!makingList);
 	};
 	return (
 		<Fragment>
-		<div className={classes.root}>
-			{makingList ? (
-				<span>{ selection.dieta !== '' &&
-					(<><Button
-						variant="contained"
-						size="medium"
-						color="primary"
-						className={classes.margin}
-						onClick={handleSave}
-					>
-						Guardar
-					</Button>
-					<Button
-						variant="contained"
-						size="medium"
-						color="secondary"
-						className={classes.margin}
-						onClick={toggleButtons}
-					>
-						Cancelar
-					</Button></>)}
-				</span>
-			) : (
-				<GreenButton variant="outlined" size="large" onClick={toggleButtons}>
-					Haz tu lista de la compra
-				</GreenButton>
-			)}
+			<div className={classes.root}>
+				{makingList ? (
+					<span>
+						{selection.dieta !== '' && (
+							<Fragment>
+								<Button
+									variant="contained"
+									size="medium"
+									color="primary"
+									className={classes.margin}
+									onClick={handleSave}
+								>
+									Guardar
+								</Button>
+								<Button
+									variant="contained"
+									size="medium"
+									color="secondary"
+									className={classes.margin}
+									onClick={toggleButtons}
+								>
+									Cancelar
+								</Button>
+							</Fragment>
+						)}
+					</span>
+				) : (
+					<GreenButton variant="outlined" size="large" onClick={toggleButtons}>
+						Haz tu lista de la compra
+					</GreenButton>
+				)}
 			</div>
 			<Fragment>
 				<Snackbar
-				anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'left',
-				}}
-				open={open}
-				autoHideDuration={6000}
-				onClose={handleClose}
-				message="Has guardado tu lista de la compra"
-				action={
-					<Fragment>
-						<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-						<CloseIcon fontSize="small" />
-						</IconButton>
-					</Fragment>
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'left'
+					}}
+					open={open}
+					autoHideDuration={3000}
+					onClose={handleClose}
+					message="Has guardado tu lista de la compra"
+					action={
+						<Fragment>
+							<IconButton
+								size="small"
+								aria-label="close"
+								color="inherit"
+								onClick={handleClose}
+							>
+								<CloseIcon fontSize="small" />
+							</IconButton>
+						</Fragment>
 					}
 				/>
 			</Fragment>

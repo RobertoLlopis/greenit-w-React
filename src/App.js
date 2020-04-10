@@ -21,9 +21,9 @@ function App() {
 			<Route exact path="/">
 				<Home selection={selection} setSelection={setSelection} />
 			</Route>
-			{/* <Route exact path="/myprofile">
+			<Route exact path="/myprofile">
 				<MyProfile selection={selection} />
-			</Route> */}
+			</Route>
 		</Switch>
 	);
 }
