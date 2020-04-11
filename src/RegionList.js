@@ -16,7 +16,7 @@ export default function RegionList(props) {
 			</span>
 			<List key="region" className="list">
 				{regionFood.map((n, i) => (
-					<span>
+					<span key={`region-${n}`}>
 						<ListItem key={n}>
 							<ListItemText primary={`${i + 1} ${n}`} />
 						</ListItem>

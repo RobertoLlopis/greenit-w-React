@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { ProfileContext } from './contexts/ProfileContext';
+import { nowDate } from './AppHelpers';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -44,7 +45,8 @@ export default function ShoppingListButtoms(props) {
 	] = useContext(ProfileContext);
 	const { shoppingList, savedList } = personalList;
 	const handleSave = () => {
-		let newList = new Date();
+		let newList = nowDate();
+		console.log(newList);
 		if (savedList === undefined) {
 			setPersonalList({
 				savedList: [
@@ -56,7 +58,16 @@ export default function ShoppingListButtoms(props) {
 				],
 				shoppingList: []
 			});
-			window.localStorage.setItem('savedList', JSON.stringify(savedList));
+			window.localStorage.setItem(
+				'savedList',
+				JSON.stringify([
+					[
+						newList,
+						shoppingList,
+						selection
+					]
+				])
+			);
 			setOpen(true);
 		}
 		else {

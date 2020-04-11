@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 
 import './ResultList.css';
 
@@ -14,7 +14,7 @@ export default function ResultList(props) {
 		makingList
 	] = useContext(ProfileContext);
 	return (
-		<>
+		<Fragment>
 			{makingList && (
 				<span className="list-header">
 					<h3>Selecciona los alimentos para hacer la lista de la compra</h3>
@@ -27,9 +27,7 @@ export default function ResultList(props) {
 				</span>
 			)}
 			<div className="root">
-				{selection.dieta !== '' && (
-					<DietaList selection={selection} />
-				)}
+				{selection.dieta !== '' && <DietaList selection={selection} />}
 				{selection.region !== '' && !makingList ? (
 					<RegionList selection={selection} />
 				) : (
@@ -37,6 +35,6 @@ export default function ResultList(props) {
 				)}
 				{!makingList && <TempList selection={selection} />}
 			</div>
-		</>
+		</Fragment>
 	);
 }

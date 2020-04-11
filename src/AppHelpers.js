@@ -116,6 +116,45 @@ export function sortBool(dietaSet, alergSet) {
 		.filter((f) => !Object.keys(f).includes(alergSet[5]));
 	return foodIn.map((f) => f.nombre);
 }
+export const getSavedList = () => {
+	let val;
+	try {
+		val = JSON.parse(window.localStorage.getItem('savedList'));
+	} catch (e) {
+		console.log('empty local storage');
+	}
+	return val;
+};
 export function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
+const days = [
+	'Dom',
+	'Lun',
+	'Mar',
+	'Miér',
+	'Jue',
+	'Vie',
+	'Sáb'
+];
+const months = [
+	'Enero',
+	'Febrero',
+	'Marzo',
+	'Abril',
+	'Mayo',
+	'Junio',
+	'Julio',
+	'Agosto',
+	'Septiembre',
+	'Octubre',
+	'Noviembre',
+	'Diciembre'
+];
+export const nowDate = () => {
+	let date = new Date();
+	let formattedDate = `${days[date.getDay()]} ${date.getDate()} de ${months[
+		date.getMonth()
+	]}: ${date.getHours() + 1}:${date.getMinutes() + 1}`;
+	return formattedDate;
+};

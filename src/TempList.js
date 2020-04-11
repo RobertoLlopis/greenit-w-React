@@ -16,7 +16,7 @@ export default function TempList(props) {
 			</span>
 			<List key="temp" className="list">
 				{tempFood.map((n, i) => (
-					<span>
+					<span key={`temp-${n}`}>
 						<ListItem key={n}>
 							<ListItemText primary={`${i + 1} ${n}`} />
 						</ListItem>
