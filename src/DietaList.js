@@ -38,7 +38,6 @@ export default function DietaList(props) {
 				setPersonalList
 	] = useContext(ProfileContext);
 	const { shoppingList } = personalList;
-	console.log(personalList);
 	let tempFood = sort(selection, 'temp');
 	let regionFood = sort(selection, 'region');
 	let setDieta = useSelectionSet(selection, 'dieta');

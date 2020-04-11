@@ -47,25 +47,16 @@ export default function ShoppingListButtoms(props) {
 		let newList = new Date();
 		if (savedList === undefined) {
 			setPersonalList({
-				...personalList,
 				savedList: [
 					[
 						newList,
 						shoppingList,
 						selection
 					]
-				]
+				],
+				shoppingList: []
 			});
-			window.localStorage.setItem(
-				'savedList',
-				JSON.stringify([
-					[
-						newList,
-						shoppingList,
-						selection
-					]
-				])
-			);
+			window.localStorage.setItem('savedList', JSON.stringify(savedList));
 			setOpen(true);
 		}
 		else {
@@ -74,7 +65,10 @@ export default function ShoppingListButtoms(props) {
 				shoppingList,
 				selection
 			]);
-			setPersonalList({ ...personalList, savedList: savedList });
+			setPersonalList({
+				savedList: savedList,
+				shoppingList: []
+			});
 			window.localStorage.clear();
 			window.localStorage.setItem('savedList', JSON.stringify(savedList));
 			setOpen(true);
@@ -128,7 +122,7 @@ export default function ShoppingListButtoms(props) {
 						horizontal: 'left'
 					}}
 					open={open}
-					autoHideDuration={3000}
+					autoHideDuration={2500}
 					onClose={handleClose}
 					message="Has guardado tu lista de la compra"
 					action={

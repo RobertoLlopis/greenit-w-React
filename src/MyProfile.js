@@ -72,10 +72,9 @@ export default function MyProfile(props) {
 										</Typography>
 										<List key={`list-${list[0]}`} className="">
 											{list[1].map((value, i) => {
-												console.log(list[2]);
+												console.log(list[1]);
 												let sortedTemp = sort(list[2], 'temp');
 												let sortedRegion = sort(list[2], 'region');
-												console.log(sortedTemp, sortedRegion);
 												return (
 													<Fragment>
 														<ListItem key={value}>
