@@ -12,9 +12,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		[theme.breakpoints.down('xs')]: {
-			marginTop: '5%'
-		}
+		paddingTop: '3rem'
+		/* [theme.breakpoints.down('sm')]: {
+			paddingTop: '2rem'
+		} */
 	}
 
 	/* select: {

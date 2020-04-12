@@ -10,7 +10,12 @@ export function ProfileProvider(props) {
 	const [
 		personalList,
 		setPersonalList
-	] = useState({ shoppingList: [] });
+	] = useState({
+		savedList:
+			window.localStorage.getItem('savedList') !== null &&
+			JSON.parse(window.localStorage.getItem('savedList')),
+		shoppingList: []
+	});
 	return (
 		<ProfileContext.Provider
 			value={[

@@ -45,13 +45,12 @@ export default function ShoppingListButtoms(props) {
 	] = useContext(ProfileContext);
 	const { shoppingList, savedList } = personalList;
 	const handleSave = () => {
-		let newList = nowDate();
-		console.log(newList);
+		let listTime = nowDate();
 		if (savedList === undefined) {
 			setPersonalList({
 				savedList: [
 					[
-						newList,
+						listTime,
 						shoppingList,
 						selection
 					]
@@ -62,7 +61,7 @@ export default function ShoppingListButtoms(props) {
 				'savedList',
 				JSON.stringify([
 					[
-						newList,
+						listTime,
 						shoppingList,
 						selection
 					]
@@ -72,7 +71,7 @@ export default function ShoppingListButtoms(props) {
 		}
 		else {
 			savedList.push([
-				newList,
+				listTime,
 				shoppingList,
 				selection
 			]);
@@ -80,6 +79,7 @@ export default function ShoppingListButtoms(props) {
 				savedList: savedList,
 				shoppingList: []
 			});
+			console.log(savedList);
 			window.localStorage.clear();
 			window.localStorage.setItem('savedList', JSON.stringify(savedList));
 			setOpen(true);

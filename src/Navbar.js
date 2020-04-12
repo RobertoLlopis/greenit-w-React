@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 import logo from './mediaContent/logo.jpeg';
 
@@ -42,7 +43,9 @@ export default function Navbar() {
 		<div>
 			<AppBar position="static">
 				<Toolbar className={classes.root}>
-					<img src={logo} alt="logo" className={classes.media} />
+					<Link to="/">
+						<img src={logo} alt="logo" className={classes.media} />
+					</Link>
 					<IconButton
 						edge="start"
 						className={classes.menuButton}
