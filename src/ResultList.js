@@ -17,7 +17,7 @@ export default function ResultList(props) {
 		<Fragment>
 			{makingList && (
 				<span className="list-header">
-					<h3>Selecciona los alimentos para hacer la lista de la compra</h3>
+					<h3>Selecciona los alimentos que quieres incluir en la lista</h3>
 					{selection.dieta === '' && (
 						<p>
 							Debes seleccionar un tipo de dieta para poder mostrar tus

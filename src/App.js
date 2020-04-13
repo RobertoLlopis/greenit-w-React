@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter, Route, Switch } from 'react-router';
 import { createBrowserHistory } from 'history';
+import { ProfileProvider } from './contexts/ProfileContext';
 
 import Home from './Home';
 import MyProfile from './MyProfile';
@@ -22,7 +23,9 @@ function App() {
 				<Home selection={selection} setSelection={setSelection} />
 			</Route>
 			<Route exact path="/myprofile">
-				<MyProfile selection={selection} />
+				<ProfileProvider>
+					<MyProfile selection={selection} />
+				</ProfileProvider>
 			</Route>
 		</Switch>
 	);

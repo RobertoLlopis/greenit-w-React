@@ -1,12 +1,11 @@
 import React, { useState, useContext, Fragment } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 
 import { ProfileContext } from './contexts/ProfileContext';
-import { nowDate } from './AppHelpers';
+import { nowDate, getRandomInt } from './AppHelpers';
+
+import MySnackbar from './MySnackbar';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -46,13 +45,15 @@ export default function ShoppingListButtoms(props) {
 	const { shoppingList, savedList } = personalList;
 	const handleSave = () => {
 		let listTime = nowDate();
-		if (savedList === undefined) {
+		console.log(savedList);
+		if (!savedList) {
 			setPersonalList({
 				savedList: [
 					[
 						listTime,
 						shoppingList,
-						selection
+						selection,
+						getRandomInt(1, 11)
 					]
 				],
 				shoppingList: []
@@ -63,7 +64,8 @@ export default function ShoppingListButtoms(props) {
 					[
 						listTime,
 						shoppingList,
-						selection
+						selection,
+						getRandomInt(1, 11)
 					]
 				])
 			);
@@ -73,13 +75,13 @@ export default function ShoppingListButtoms(props) {
 			savedList.push([
 				listTime,
 				shoppingList,
-				selection
+				selection,
+				getRandomInt(1, 11)
 			]);
 			setPersonalList({
 				savedList: savedList,
 				shoppingList: []
 			});
-			console.log(savedList);
 			window.localStorage.clear();
 			window.localStorage.setItem('savedList', JSON.stringify(savedList));
 			setOpen(true);
@@ -127,27 +129,10 @@ export default function ShoppingListButtoms(props) {
 				)}
 			</div>
 			<Fragment>
-				<Snackbar
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'left'
-					}}
+				<MySnackbar
 					open={open}
-					autoHideDuration={2500}
-					onClose={handleClose}
-					message="Has guardado tu lista de la compra"
-					action={
-						<Fragment>
-							<IconButton
-								size="small"
-								aria-label="close"
-								color="inherit"
-								onClick={handleClose}
-							>
-								<CloseIcon fontSize="small" />
-							</IconButton>
-						</Fragment>
-					}
+					handleClose={handleClose}
+					msg="Has guardado tu lista de la compra"
 				/>
 			</Fragment>
 		</Fragment>

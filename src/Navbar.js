@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
 			height: '6rem'
 		}
 	},
+	link: {
+		textDecoration: 'none',
+		color: 'white'
+	},
 	menuButton: {
 		marginRight: theme.spacing(2)
 	},
@@ -45,6 +49,9 @@ export default function Navbar() {
 				<Toolbar className={classes.root}>
 					<Link to="/">
 						<img src={logo} alt="logo" className={classes.media} />
+					</Link>
+					<Link to="/myprofile" className={classes.link}>
+						Mi perfil
 					</Link>
 					<IconButton
 						edge="start"

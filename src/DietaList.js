@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -32,10 +32,10 @@ const YellowIcon = withStyles({
 export default function DietaList(props) {
 	const { selection } = props;
 	const [
-				makingList,
-				setMakingList,
-				personalList,
-				setPersonalList
+		makingList,
+		setMakingList,
+		personalList,
+		setPersonalList
 	] = useContext(ProfileContext);
 	const { shoppingList } = personalList;
 	let tempFood = sort(selection, 'temp');
@@ -54,7 +54,8 @@ export default function DietaList(props) {
 			});
 		}
 		else {
-			setPersonalList({...personalList,
+			setPersonalList({
+				...personalList,
 				shoppingList: shoppingList.filter((f) => f !== name)
 			});
 		}
@@ -62,26 +63,26 @@ export default function DietaList(props) {
 	return (
 		<div className={makingList ? 'div-shoppingList' : 'list-div'}>
 			{!makingList ? (
-				<>
+				<Fragment>
 					<span className="list-header">
 						<h3>En base a tu dieta y alérgenos</h3>{' '}
 					</span>
 					<List key="dieta" className="list">
 						{dietaFood.map((n, i) => (
-							<span>
-								<ListItem key={n}>
+							<span key={n}>
+								<ListItem key={`${n}-noMaking-listItem`}>
 									<ListItemText primary={`${i + 1} ${n}`} />
 								</ListItem>
 								{i + 1 <= dietaFood.length - 1 && <Divider />}
 							</span>
 						))}
 					</List>
-				</>
+				</Fragment>
 			) : (
-				<>
+				<Fragment>
 					<List key="dieta" className="list-shopping">
 						{dietaFood.slice(0, dietaFood.length / 2).map((n, i) => (
-							<>
+							<Fragment key={`${n}-listItem-1stPart`}>
 								<ListItem key={n}>
 									<ListItemText primary={`${n}`} />
 									{makingList && (
@@ -101,14 +102,14 @@ export default function DietaList(props) {
 									)}
 								</ListItem>
 								{i + 1 <= dietaFood.length - 1 && <Divider />}
-							</>
+							</Fragment>
 						))}
 					</List>
 					<List key="dieta2" className="list-shopping">
 						{dietaFood
 							.slice(dietaFood.length / 2, dietaFood.length)
 							.map((n, i) => (
-								<>
+								<Fragment key={`${n}-listItem-2ndPart`}>
 									<ListItem key={n}>
 										<ListItemText primary={`${n}`} />
 										{makingList && (
@@ -128,10 +129,10 @@ export default function DietaList(props) {
 										)}
 									</ListItem>
 									{i + 1 <= dietaFood.length - 1 && <Divider />}
-								</>
+								</Fragment>
 							))}
 					</List>
-				</>
+				</Fragment>
 			)}
 		</div>
 	);
