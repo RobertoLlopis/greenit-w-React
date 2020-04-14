@@ -137,7 +137,7 @@ const days = [
 	'Vie',
 	'Sáb'
 ];
-const months = [
+export const months = [
 	'Enero',
 	'Febrero',
 	'Marzo',
