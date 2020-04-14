@@ -1,47 +1,20 @@
 import React, { useContext, useState, Fragment } from 'react';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { ListItemSecondaryAction, Icon } from '@material-ui/core';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import NearMeIcon from '@material-ui/icons/NearMe';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 import { ProfileContext } from './contexts/ProfileContext';
 import Navbar from './Navbar';
+import ProfileCard from './ProfileCard';
 import MySnackbar from './MySnackbar';
-import { getSavedList, sort } from './AppHelpers';
+import { getSavedList } from './AppHelpers';
 
 const styles = (theme) => ({
-	root: { textAlign: 'center' },
+	root: { textAlign: 'center' }
 	/* grid: { display: 'grid' }, */
 	/* gridItem: {
 		justifySelf: 'center'
 	}, */
-	card: {
-		maxWidth: 345
-	},
-	contentList: {
-		overflowY: 'scroll',
-		maxHeight: 350,
-		[theme.breakpoints.down('sm')]: { maxHeight: 275 }
-	}
 });
-const YellowIcon = withStyles({
-	root: {
-		color: '#ffcc00',
-		paddingRight: '2px'
-	}
-})((props) => <Icon {...props} />);
 
 function MyProfile(props) {
 	const { classes } = props;
@@ -89,77 +62,7 @@ function MyProfile(props) {
 				>
 					{localStorageSavedList !== null ? (
 						localStorageSavedList.map((list) => {
-							let time = list[0];
-							let imgNumber = list[3];
-							return (
-								<Grid
-									item
-									key={`grid-${time}`}
-									xs={12}
-									sm={6}
-									md={4}
-									lg={3}
-									className={classes.gridItem}
-								>
-									<Card className={classes.card}>
-										<CardActionArea>
-											<CardMedia
-												component="img"
-												alt="RandomFoodImg"
-												height="140"
-												image={require(`./mediaContent/foodImg/${imgNumber}.jpg`)}
-												title="Recipe"
-											/>
-											<CardContent className={classes.content}>
-												<Typography gutterBottom variant="h5" component="h2">
-													{time}
-												</Typography>
-												<List
-													key={`list-${time}`}
-													className={classes.contentList}
-												>
-													{list[1].map((value, i) => {
-														let sortedTemp = sort(list[2], 'temp');
-														let sortedRegion = sort(list[2], 'region');
-														return (
-															<Fragment key={`${time}-${value}`}>
-																<ListItem key={value}>
-																	<ListItemText primary={`${value}`} />
-																	<ListItemSecondaryAction>
-																		{sortedRegion.includes(value) && (
-																			<YellowIcon>
-																				<NearMeIcon />
-																			</YellowIcon>
-																		)}
-																		{sortedTemp.includes(value) && (
-																			<Icon color="primary">
-																				<EventAvailableIcon />
-																			</Icon>
-																		)}
-																	</ListItemSecondaryAction>
-																</ListItem>
-																{i + 1 <= list[1].length - 1 && <Divider />}
-															</Fragment>
-														);
-													})}
-												</List>
-											</CardContent>
-										</CardActionArea>
-										<CardActions>
-											<Button size="small" color="primary">
-												Editar
-											</Button>
-											<Button
-												size="small"
-												color="secondary"
-												onClick={() => handleDelete(time)}
-											>
-												Eliminar
-											</Button>
-										</CardActions>
-									</Card>
-								</Grid>
-							);
+							return <ProfileCard list={list} handleDelete={handleDelete} />;
 						})
 					) : (
 						<h1>Subnormal incluye algo en el storage!</h1>
@@ -170,7 +73,7 @@ function MyProfile(props) {
 				<MySnackbar
 					open={open}
 					handleClose={handleClose}
-					msg="Has guardado tu lista de la compra"
+					msg="Has eliminado tu lista de la compra"
 				/>
 			</Fragment>
 		</Fragment>
