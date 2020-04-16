@@ -14,7 +14,7 @@ function App() {
 		region: '',
 		dieta: '',
 		alergenos: [],
-		temp: 8 /* new Date().getMonth() + 1 */
+		temp: new Date().getMonth() + 1
 	});
 
 	return (

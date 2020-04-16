@@ -5,7 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { ProfileContext } from './contexts/ProfileContext';
 import Navbar from './Navbar';
 import ProfileCard from './ProfileCard';
+import EditProfileList from './EditProfileList';
 import MySnackbar from './MySnackbar';
+import useToggleState from './hooks/useToggleState';
 import { getSavedList } from './AppHelpers';
 
 const styles = (theme) => ({
@@ -27,12 +29,18 @@ function MyProfile(props) {
 	const [
 		open,
 		setOpen
-	] = useState(false);
+	] = useToggleState();
+	const [
+		isEditing,
+		setIsEditing
+	] = useToggleState();
+	const [
+		editingList,
+		setEditingList
+	] = useState({ list: [] });
 	const { savedList } = personalList;
 	const localStorageSavedList = getSavedList();
-	const handleClose = () => {
-		setOpen(false);
-	};
+	const handleEdit = (list) => {};
 	const handleDelete = (listTime) => {
 		let remainSavedList = savedList.filter((list) => list[0] !== listTime);
 		setPersonalList({
@@ -41,7 +49,11 @@ function MyProfile(props) {
 		});
 		window.localStorage.clear();
 		window.localStorage.setItem('savedList', JSON.stringify(remainSavedList));
-		setOpen(true);
+		setOpen();
+	};
+	const changeToEdit = (list) => {
+		setEditingList({ list: list });
+		setIsEditing();
 	};
 	return (
 		<Fragment>
@@ -51,6 +63,14 @@ function MyProfile(props) {
 				<h3 style={{ textAlign: 'left', paddingLeft: '2rem' }}>
 					Mis listas guardadas:
 				</h3>
+				{isEditing && (
+					<EditProfileList
+						list={editingList.list}
+						isEditing={isEditing}
+						setIsEditing={setIsEditing}
+						handleDelete={handleDelete}
+					/>
+				)}
 				<Grid
 					key="grid-container"
 					container
@@ -62,7 +82,14 @@ function MyProfile(props) {
 				>
 					{localStorageSavedList !== null ? (
 						localStorageSavedList.map((list) => {
-							return <ProfileCard list={list} handleDelete={handleDelete} />;
+							return (
+								<ProfileCard
+									key={list[0]}
+									list={list}
+									handleDelete={handleDelete}
+									changeToEdit={changeToEdit}
+								/>
+							);
 						})
 					) : (
 						<h1>Subnormal incluye algo en el storage!</h1>
@@ -72,7 +99,7 @@ function MyProfile(props) {
 			<Fragment>
 				<MySnackbar
 					open={open}
-					handleClose={handleClose}
+					handleClose={setOpen}
 					msg="Has eliminado tu lista de la compra"
 				/>
 			</Fragment>

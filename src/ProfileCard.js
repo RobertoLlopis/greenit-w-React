@@ -17,18 +17,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { sort, months } from './AppHelpers';
+import ListHeader from './ListHeader';
 
 const styles = (theme) => ({
 	/* gridItem: {
 		justifySelf: 'center'
     }, */
-	titleContainer: {
-		padding: '0.5rem',
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
 	card: {
 		maxWidth: 345,
 		[theme.breakpoints.down('sm')]: {
@@ -40,21 +34,6 @@ const styles = (theme) => ({
 		justifyContent: 'center',
 		padding: '0.5rem',
 		alignContent: 'center'
-	},
-	iconsArea: {
-		width: '100%',
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	iconGourp: {
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '50%',
-		padding: '0.5rem'
 	},
 	btns: {},
 	contentList: {
@@ -71,24 +50,16 @@ const YellowIcon = withStyles({
 })((props) => <Icon {...props} />);
 
 function ProfileCard(props) {
-	const { list, handleDelete, classes } = props;
+	const { list, handleDelete, changeToEdit, classes } = props;
 	let time = list[0];
 	let foodArr = list[1];
 	let selection = list[2];
 	let imgNumber = list[3];
 	console.log(selection.region.length);
 	return (
-		<Grid
-			item
-			key={`grid-${time}`}
-			xs={12}
-			sm={6}
-			md={4}
-			lg={3}
-			className={classes.gridItem}
-		>
+		<Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
 			<Card className={classes.card}>
-				<CardActionArea>
+				<CardActionArea onClick={() => changeToEdit(list)}>
 					<CardMedia
 						component="img"
 						alt="RandomFoodImg"
@@ -97,33 +68,7 @@ function ProfileCard(props) {
 						title="Recipe"
 					/>
 					<CardContent className={classes.content}>
-						<div className={classes.titleContainer}>
-							<Typography gutterBottom variant="overline" component="h2">
-								{time}
-							</Typography>
-							<div className={classes.iconsArea}>
-								<span className={classes.iconGourp}>
-									<YellowIcon>
-										<NearMeIcon />
-									</YellowIcon>
-									{
-										<Typography variant="caption" component="body">
-											{selection.region}
-										</Typography>
-									}
-								</span>
-								<span className={classes.iconGourp}>
-									<Icon color="primary">
-										<EventAvailableIcon />
-									</Icon>
-									{
-										<Typography variant="caption" component="body">
-											{months[selection.temp]}
-										</Typography>
-									}
-								</span>
-							</div>
-						</div>
+						<ListHeader listState={{ time, selection }} />
 						<List key={`list-${time}`} className={classes.contentList}>
 							{foodArr.map((value, i) => {
 								let sortedTemp = sort(selection, 'temp');
@@ -158,6 +103,7 @@ function ProfileCard(props) {
 						variant="outlined"
 						color="primary"
 						className={classes.btns}
+						onClick={() => changeToEdit(list)}
 					>
 						Editar
 					</Button>

@@ -1,33 +1,16 @@
 import React, { useContext, Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { ListItemSecondaryAction, Checkbox, Icon } from '@material-ui/core';
+import { ListItemSecondaryAction, Icon } from '@material-ui/core';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import NearMeIcon from '@material-ui/icons/NearMe';
 
+import { GreenCheckbox, YellowIcon } from './styles/styledComponents';
 import { ProfileContext } from './contexts/ProfileContext';
-
 import { sortBool, sort } from './AppHelpers';
 import useSelectionSet from './hooks/useSelectionSet';
-
-const GreenCheckbox = withStyles({
-	root: {
-		color: '#37a82a',
-		verticalAlign: 'unset',
-		'&$checked': {
-			color: 'green'[600]
-		}
-	}
-})((props) => <Checkbox color="default" {...props} />);
-const YellowIcon = withStyles({
-	root: {
-		color: '#ffcc00',
-		paddingRight: '2px'
-	}
-})((props) => <Icon {...props} />);
 
 export default function DietaList(props) {
 	const { selection } = props;
