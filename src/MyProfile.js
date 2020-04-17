@@ -27,8 +27,12 @@ function MyProfile(props) {
 		setPersonalList
 	] = useContext(ProfileContext);
 	const [
-		open,
-		setOpen
+		deleted,
+		setDeleted
+	] = useToggleState();
+	const [
+		edited,
+		setEdited
 	] = useToggleState();
 	const [
 		isEditing,
@@ -40,7 +44,16 @@ function MyProfile(props) {
 	] = useState({ list: [] });
 	const { savedList } = personalList;
 	const localStorageSavedList = getSavedList();
-	const handleEdit = (list) => {};
+	const handleEdit = (listTime, editedList) => {
+		let editedSavedList = personalList.savedList.map(
+			(list) => list[0] === listTime && (list = editedList)
+		);
+		setPersonalList({ ...personalList, savedList: editedSavedList });
+		window.localStorage.clear();
+		window.localStorage.setItem('savedList', JSON.stringify(editedSavedList));
+		setIsEditing();
+		setEdited();
+	};
 	const handleDelete = (listTime) => {
 		let remainSavedList = savedList.filter((list) => list[0] !== listTime);
 		setPersonalList({
@@ -49,7 +62,7 @@ function MyProfile(props) {
 		});
 		window.localStorage.clear();
 		window.localStorage.setItem('savedList', JSON.stringify(remainSavedList));
-		setOpen();
+		setDeleted();
 	};
 	const changeToEdit = (list) => {
 		setEditingList({ list: list });
@@ -66,9 +79,8 @@ function MyProfile(props) {
 				{isEditing && (
 					<EditProfileList
 						list={editingList.list}
-						isEditing={isEditing}
 						setIsEditing={setIsEditing}
-						handleDelete={handleDelete}
+						handleSaveEdit={handleEdit}
 					/>
 				)}
 				<Grid
@@ -98,9 +110,14 @@ function MyProfile(props) {
 			</div>
 			<Fragment>
 				<MySnackbar
-					open={open}
-					handleClose={setOpen}
+					open={deleted}
+					handleClose={setDeleted}
 					msg="Has eliminado tu lista de la compra"
+				/>
+				<MySnackbar
+					open={edited}
+					handleClose={setEdited}
+					msg="Has modificado tu lista de la compra"
 				/>
 			</Fragment>
 		</Fragment>

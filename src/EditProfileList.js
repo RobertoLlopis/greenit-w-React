@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,7 +17,7 @@ const styles = (theme) => ({
 });
 
 function EditProfileList(props) {
-	const { list, setIsEditing, classes } = props;
+	const { list, handleSaveEdit, setIsEditing, classes } = props;
 	const [
 		listState,
 		setListState
@@ -24,10 +25,18 @@ function EditProfileList(props) {
 		time: list[0],
 		foodArr: list[1],
 		selection: list[2],
-		imgNumber: list[3]
+		imgNumber: list[3],
+		done: []
 	});
 
-	const { time, foodArr, selection, imgNumber } = listState;
+	const { time, foodArr, selection, imgNumber, done } = listState;
+	const listStateArr = [
+		time,
+		foodArr,
+		selection,
+		imgNumber,
+		done
+	];
 	const deleteItem = (item) => {
 		let remainFoodArr = foodArr.filter((f) => f !== item);
 		setListState({ ...listState, foodArr: remainFoodArr });
@@ -36,6 +45,16 @@ function EditProfileList(props) {
 		let idxOfItem = foodArr.indexOf(prevItem);
 		foodArr[idxOfItem] = newItem;
 		setListState({ ...listState, foodArr: foodArr });
+	};
+	const itemDone = (item) => {
+		if (!done.includes(item) || done === []) {
+			done.push(item);
+			setListState({ ...listState, done: done });
+		}
+		else {
+			let remainDone = done.filter((i) => i !== item);
+			setListState({ ...listState, done: remainDone });
+		}
 	};
 	return (
 		<Paper>
@@ -52,12 +71,31 @@ function EditProfileList(props) {
 								sortedRegion={sortedRegion}
 								replaceItem={replaceItem}
 								deleteItem={deleteItem}
+								itemDone={itemDone}
 							/>
 							{i + 1 <= foodArr.length - 1 && <Divider />}
 						</Fragment>
 					);
 				})}
 			</List>
+			<Button
+				size="small"
+				variant="outlined"
+				color="primary"
+				className={classes.btns}
+				onClick={() => handleSaveEdit(time, listStateArr)}
+			>
+				Guardar
+			</Button>
+			<Button
+				size="small"
+				variant="outlined"
+				color="secondary"
+				className={classes.btns}
+				onClick={setIsEditing}
+			>
+				Cancelar
+			</Button>
 		</Paper>
 	);
 }

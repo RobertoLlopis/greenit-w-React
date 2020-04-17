@@ -53,7 +53,8 @@ export default function ShoppingListButtoms(props) {
 						listTime,
 						shoppingList,
 						selection,
-						getRandomInt(1, 11)
+						getRandomInt(1, 11),
+						[]
 					]
 				],
 				shoppingList: []
@@ -65,7 +66,8 @@ export default function ShoppingListButtoms(props) {
 						listTime,
 						shoppingList,
 						selection,
-						getRandomInt(1, 11)
+						getRandomInt(1, 11),
+						[]
 					]
 				])
 			);
@@ -76,7 +78,8 @@ export default function ShoppingListButtoms(props) {
 				listTime,
 				shoppingList,
 				selection,
-				getRandomInt(1, 11)
+				getRandomInt(1, 11),
+				[]
 			]);
 			setPersonalList({
 				savedList: savedList,

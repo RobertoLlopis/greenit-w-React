@@ -16,17 +16,35 @@ import { YellowIcon } from './styles/styledComponents';
 import EditItemForm from './EditItemForm';
 
 export default function EditItem(props) {
-	const { item, sortedTemp, sortedRegion, replaceItem, deleteItem } = props;
+	const {
+		item,
+		sortedTemp,
+		sortedRegion,
+		replaceItem,
+		deleteItem,
+		itemDone
+	} = props;
 	const [
 		isEditingItem,
 		setIsEditingItem
 	] = useToggleState();
+	const [
+		done,
+		setDone
+	] = useToggleState();
+	const handleChange = () => {
+		setDone();
+		itemDone(item);
+	};
 	return (
 		<ListItem>
 			{!isEditingItem ? (
 				<Fragment>
-					<Checkbox color="primary" /* onChange={handleChange} */ />
-					<ListItemText primary={`${item}`} />
+					<Checkbox color="primary" onChange={handleChange} />
+					<ListItemText
+						primary={`${item}`}
+						style={{ textDecoration: done ? 'line-through' : 'none' }}
+					/>
 					<ListItemSecondaryAction>
 						{sortedRegion.includes(item) && (
 							<YellowIcon>
