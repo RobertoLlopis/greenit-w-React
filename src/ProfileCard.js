@@ -55,6 +55,7 @@ function ProfileCard(props) {
 	let foodArr = list[1];
 	let selection = list[2];
 	let imgNumber = list[3];
+	let done = list[4];
 	console.log(selection.region.length);
 	return (
 		<Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
@@ -76,7 +77,14 @@ function ProfileCard(props) {
 								return (
 									<Fragment key={`${time}-${value}`}>
 										<ListItem key={value}>
-											<ListItemText primary={`${value}`} />
+											<ListItemText
+												primary={`${value}`}
+												style={{
+													textDecoration: done.includes(value)
+														? 'line-through'
+														: 'none'
+												}}
+											/>
 											<ListItemSecondaryAction>
 												{sortedRegion.includes(value) && (
 													<YellowIcon>

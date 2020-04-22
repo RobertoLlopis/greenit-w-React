@@ -18,11 +18,12 @@ import EditItemForm from './EditItemForm';
 export default function EditItem(props) {
 	const {
 		item,
+		prevItemsDone,
 		sortedTemp,
 		sortedRegion,
 		replaceItem,
 		deleteItem,
-		itemDone
+		handleItemDone
 	} = props;
 	const [
 		isEditingItem,
@@ -31,19 +32,26 @@ export default function EditItem(props) {
 	const [
 		done,
 		setDone
-	] = useToggleState();
+	] = useToggleState(prevItemsDone.includes(item));
 	const handleChange = () => {
 		setDone();
-		itemDone(item);
+		handleItemDone(item);
 	};
 	return (
 		<ListItem>
 			{!isEditingItem ? (
 				<Fragment>
-					<Checkbox color="primary" onChange={handleChange} />
+					<Checkbox
+						value="checkbox"
+						checked={done}
+						color="primary"
+						onChange={handleChange}
+					/>
 					<ListItemText
 						primary={`${item}`}
-						style={{ textDecoration: done ? 'line-through' : 'none' }}
+						style={{
+							textDecoration: done ? 'line-through' : 'none'
+						}}
 					/>
 					<ListItemSecondaryAction>
 						{sortedRegion.includes(item) && (

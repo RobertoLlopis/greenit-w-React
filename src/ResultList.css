@@ -34,9 +34,10 @@
 	text-overflow: ellipsis;
 }
 .list-shopping {
-	width: intrinsic; /* Safari/WebKit uses a non-standard name */
-	width: -moz-max-content; /* Firefox/Gecko */
-	width: -webkit-max-content; /* Chrome */
+	width: 100%;
+	width: -moz-available; /* WebKit-based browsers will ignore this. */
+	width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+	width: fill-available;
 }
 @media (max-width: 1150px) {
 	.root {

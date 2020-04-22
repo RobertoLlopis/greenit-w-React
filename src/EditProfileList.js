@@ -26,11 +26,12 @@ function EditProfileList(props) {
 		foodArr: list[1],
 		selection: list[2],
 		imgNumber: list[3],
-		done: []
+		done: list[4]
 	});
 
 	const { time, foodArr, selection, imgNumber, done } = listState;
-	const listStateArr = [
+	console.log(done);
+	let listStateArr = [
 		time,
 		foodArr,
 		selection,
@@ -56,6 +57,19 @@ function EditProfileList(props) {
 			setListState({ ...listState, done: remainDone });
 		}
 	};
+	const handleItemDone = (item) => {
+		console.log(item);
+		itemDone(item);
+		console.log(listState);
+		listStateArr = [
+			time,
+			foodArr,
+			selection,
+			imgNumber,
+			done
+		];
+		handleSaveEdit(time, listStateArr, false);
+	};
 	return (
 		<Paper>
 			<ListHeader listState={listState} />
@@ -67,11 +81,12 @@ function EditProfileList(props) {
 						<Fragment key={`${n}-Edit-listItem`}>
 							<EditItem
 								item={n}
+								prevItemsDone={done}
 								sortedTemp={sortedTemp}
 								sortedRegion={sortedRegion}
 								replaceItem={replaceItem}
 								deleteItem={deleteItem}
-								itemDone={itemDone}
+								handleItemDone={handleItemDone}
 							/>
 							{i + 1 <= foodArr.length - 1 && <Divider />}
 						</Fragment>
@@ -83,7 +98,7 @@ function EditProfileList(props) {
 				variant="outlined"
 				color="primary"
 				className={classes.btns}
-				onClick={() => handleSaveEdit(time, listStateArr)}
+				onClick={() => handleSaveEdit(time, listStateArr, true)}
 			>
 				Guardar
 			</Button>

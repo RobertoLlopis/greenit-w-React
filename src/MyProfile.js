@@ -44,15 +44,17 @@ function MyProfile(props) {
 	] = useState({ list: [] });
 	const { savedList } = personalList;
 	const localStorageSavedList = getSavedList();
-	const handleEdit = (listTime, editedList) => {
+	const handleEdit = (listTime, editedList, setBool) => {
 		let editedSavedList = personalList.savedList.map(
 			(list) => list[0] === listTime && (list = editedList)
 		);
 		setPersonalList({ ...personalList, savedList: editedSavedList });
 		window.localStorage.clear();
 		window.localStorage.setItem('savedList', JSON.stringify(editedSavedList));
-		setIsEditing();
-		setEdited();
+		if (setBool) {
+			setIsEditing();
+			setEdited();
+		}
 	};
 	const handleDelete = (listTime) => {
 		let remainSavedList = savedList.filter((list) => list[0] !== listTime);
