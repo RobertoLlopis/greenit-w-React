@@ -51,12 +51,12 @@ const YellowIcon = withStyles({
 
 function ProfileCard(props) {
 	const { list, handleDelete, changeToEdit, classes } = props;
-	let time = list[0];
-	let foodArr = list[1];
-	let selection = list[2];
-	let imgNumber = list[3];
-	let done = list[4];
-	console.log(selection.region.length);
+	let id = list[0];
+	let time = list[1];
+	let foodArr = list[2];
+	let selection = list[3];
+	let imgNumber = list[4];
+	let done = list[5];
 	return (
 		<Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
 			<Card className={classes.card}>
@@ -70,28 +70,28 @@ function ProfileCard(props) {
 					/>
 					<CardContent className={classes.content}>
 						<ListHeader listState={{ time, selection }} />
-						<List key={`list-${time}`} className={classes.contentList}>
-							{foodArr.map((value, i) => {
+						<List key={`list-${id}`} className={classes.contentList}>
+							{foodArr.map((item, i) => {
 								let sortedTemp = sort(selection, 'temp');
 								let sortedRegion = sort(selection, 'region');
 								return (
-									<Fragment key={`${time}-${value}`}>
-										<ListItem key={value}>
+									<Fragment key={`${id}-${item}`}>
+										<ListItem key={item}>
 											<ListItemText
-												primary={`${value}`}
+												primary={`${item}`}
 												style={{
-													textDecoration: done.includes(value)
+													textDecoration: done.includes(item)
 														? 'line-through'
 														: 'none'
 												}}
 											/>
 											<ListItemSecondaryAction>
-												{sortedRegion.includes(value) && (
+												{sortedRegion.includes(item) && (
 													<YellowIcon>
 														<NearMeIcon />
 													</YellowIcon>
 												)}
-												{sortedTemp.includes(value) && (
+												{sortedTemp.includes(item) && (
 													<Icon color="primary">
 														<EventAvailableIcon />
 													</Icon>
@@ -120,7 +120,7 @@ function ProfileCard(props) {
 						variant="outlined"
 						color="secondary"
 						className={classes.btns}
-						onClick={() => handleDelete(time)}
+						onClick={() => handleDelete(id)}
 					>
 						Eliminar
 					</Button>

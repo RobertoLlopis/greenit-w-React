@@ -43,21 +43,17 @@ function MyProfile(props) {
 		setEditingList
 	] = useState({ list: [] });
 	const { savedList } = personalList;
-	const localStorageSavedList = getSavedList();
-	const handleEdit = (listTime, editedList, setBool) => {
-		let editedSavedList = personalList.savedList.map(
-			(list) => list[0] === listTime && (list = editedList)
-		);
-		setPersonalList({ ...personalList, savedList: editedSavedList });
+	const handleEdit = (id, editedList) => {
+		savedList.map((list) => list[0] === id && (list = editedList));
+		console.log('edited', savedList);
+		setPersonalList({ ...personalList, savedList: savedList });
 		window.localStorage.clear();
-		window.localStorage.setItem('savedList', JSON.stringify(editedSavedList));
-		if (setBool) {
-			setIsEditing();
-			setEdited();
-		}
+		window.localStorage.setItem('savedList', JSON.stringify(savedList));
+		setIsEditing();
+		setEdited();
 	};
-	const handleDelete = (listTime) => {
-		let remainSavedList = savedList.filter((list) => list[0] !== listTime);
+	const handleDelete = (id) => {
+		let remainSavedList = savedList.filter((list) => list[0] !== id);
 		setPersonalList({
 			savedList: remainSavedList,
 			shoppingList: []
@@ -94,8 +90,8 @@ function MyProfile(props) {
 					direction="row"
 					className={classes.grid}
 				>
-					{localStorageSavedList !== null ? (
-						localStorageSavedList.map((list) => {
+					{savedList !== null ? (
+						savedList.map((list) => {
 							return (
 								<ProfileCard
 									key={list[0]}

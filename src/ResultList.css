@@ -39,6 +39,9 @@
 	width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
 	width: fill-available;
 }
+.itemText-shopping {
+	padding-right: 20px;
+}
 @media (max-width: 1150px) {
 	.root {
 		flex-direction: row;

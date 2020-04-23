@@ -67,7 +67,10 @@ export default function DietaList(props) {
 						{dietaFood.slice(0, dietaFood.length / 2).map((n, i) => (
 							<Fragment key={`${n}-listItem-1stPart`}>
 								<ListItem key={n}>
-									<ListItemText primary={`${n}`} />
+									<ListItemText
+										primary={`${n}`}
+										className="itemText-shopping"
+									/>
 									{makingList && (
 										<ListItemSecondaryAction>
 											{regionFood.includes(n) && (
@@ -94,7 +97,10 @@ export default function DietaList(props) {
 							.map((n, i) => (
 								<Fragment key={`${n}-listItem-2ndPart`}>
 									<ListItem key={n}>
-										<ListItemText primary={`${n}`} />
+										<ListItemText
+											primary={`${n}`}
+											className="itemText-shopping"
+										/>
 										{makingList && (
 											<ListItemSecondaryAction>
 												{regionFood.includes(n) && (

@@ -21,23 +21,21 @@ function EditProfileList(props) {
 	const [
 		listState,
 		setListState
-	] = useState({
-		time: list[0],
-		foodArr: list[1],
-		selection: list[2],
-		imgNumber: list[3],
-		done: list[4]
-	});
+	] = useState([
+		list[0],
+		list[1],
+		list[2],
+		list[3],
+		list[4],
+		list[5]
+	]);
 
-	const { time, foodArr, selection, imgNumber, done } = listState;
-	console.log(done);
-	let listStateArr = [
-		time,
-		foodArr,
-		selection,
-		imgNumber,
-		done
-	];
+	let id = listState[0];
+	let time = listState[1];
+	let foodArr = listState[2];
+	let selection = listState[3];
+	let imgNumber = listState[4];
+	let done = listState[5];
 	const deleteItem = (item) => {
 		let remainFoodArr = foodArr.filter((f) => f !== item);
 		setListState({ ...listState, foodArr: remainFoodArr });
@@ -57,22 +55,10 @@ function EditProfileList(props) {
 			setListState({ ...listState, done: remainDone });
 		}
 	};
-	const handleItemDone = (item) => {
-		console.log(item);
-		itemDone(item);
-		console.log(listState);
-		listStateArr = [
-			time,
-			foodArr,
-			selection,
-			imgNumber,
-			done
-		];
-		handleSaveEdit(time, listStateArr, false);
-	};
+
 	return (
 		<Paper>
-			<ListHeader listState={listState} />
+			<ListHeader listState={{ time, selection }} />
 			<List key="dieta" className="list-shopping">
 				{foodArr.map((n, i) => {
 					let sortedTemp = sort(selection, 'temp');
@@ -86,7 +72,7 @@ function EditProfileList(props) {
 								sortedRegion={sortedRegion}
 								replaceItem={replaceItem}
 								deleteItem={deleteItem}
-								handleItemDone={handleItemDone}
+								handleItemDone={itemDone}
 							/>
 							{i + 1 <= foodArr.length - 1 && <Divider />}
 						</Fragment>
@@ -98,7 +84,7 @@ function EditProfileList(props) {
 				variant="outlined"
 				color="primary"
 				className={classes.btns}
-				onClick={() => handleSaveEdit(time, listStateArr, true)}
+				onClick={() => handleSaveEdit(id, listState)}
 			>
 				Guardar
 			</Button>
