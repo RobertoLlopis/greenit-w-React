@@ -11,9 +11,31 @@ import ListHeader from './ListHeader';
 import EditItem from './EditItem';
 
 const styles = (theme) => ({
-	/* gridItem: {
-		justifySelf: 'center'
-    }, */
+	root: {
+		margin: 'auto',
+		width: 'fit-content',
+		maxWidth: '90vw',
+		padding: '2rem 4rem 4rem 4rem',
+		[theme.breakpoints.down('xs')]: {
+			padding: '1.5rem',
+			width: 'auto',
+			margin: '0',
+			maxWidth: '100vw'
+		}
+	},
+	editingList: {
+		minWidth: window.innerWidth / 2,
+		overflowWrap: 'normal',
+		[theme.breakpoints.down('sm')]: { width: '100%', paddingRight: 0 }
+	},
+	btnContainer: {
+		margin: 'auto',
+		paddingTop: '2rem',
+		width: '70%',
+		display: 'flex',
+		justifyContent: 'space-around',
+		[theme.breakpoints.down('xs')]: { width: '85%' }
+	}
 });
 
 function EditProfileList(props) {
@@ -21,45 +43,54 @@ function EditProfileList(props) {
 	const [
 		listState,
 		setListState
-	] = useState([
-		list[0],
-		list[1],
-		list[2],
-		list[3],
-		list[4],
-		list[5]
-	]);
+	] = useState({
+		editingList: [
+			list[0],
+			list[1],
+			list[2],
+			list[3],
+			list[4],
+			list[5]
+		]
+	});
+	const { editingList } = listState;
+	let id = editingList[0];
+	let time = editingList[1];
+	let foodArr = editingList[2];
+	let selection = editingList[3];
+	console.log(editingList[4]);
+	let imgNumber = editingList[4];
+	let done = editingList[5];
 
-	let id = listState[0];
-	let time = listState[1];
-	let foodArr = listState[2];
-	let selection = listState[3];
-	let imgNumber = listState[4];
-	let done = listState[5];
 	const deleteItem = (item) => {
 		let remainFoodArr = foodArr.filter((f) => f !== item);
-		setListState({ ...listState, foodArr: remainFoodArr });
+		editingList[2] = remainFoodArr;
+		setListState({ ...listState, editingList: editingList });
 	};
 	const replaceItem = (prevItem, newItem) => {
 		let idxOfItem = foodArr.indexOf(prevItem);
 		foodArr[idxOfItem] = newItem;
-		setListState({ ...listState, foodArr: foodArr });
+		editingList[2] = foodArr;
+		setListState({ ...listState, editingList: editingList });
 	};
 	const itemDone = (item) => {
 		if (!done.includes(item) || done === []) {
 			done.push(item);
-			setListState({ ...listState, done: done });
+			editingList[5] = done;
+			setListState({ ...listState, editingList: editingList });
 		}
 		else {
 			let remainDone = done.filter((i) => i !== item);
-			setListState({ ...listState, done: remainDone });
+			editingList[5] = remainDone;
+			setListState({ ...listState, editingList: editingList });
 		}
 	};
 
 	return (
-		<Paper>
-			<ListHeader listState={{ time, selection }} />
-			<List key="dieta" className="list-shopping">
+		<Paper className={classes.root}>
+			<h1 style={{ textAlign: 'center' }}>Mi perfil</h1>
+			<ListHeader listState={{ time, selection }} editing={true} />
+			<List key="dieta" className={classes.editingList}>
 				{foodArr.map((n, i) => {
 					let sortedTemp = sort(selection, 'temp');
 					let sortedRegion = sort(selection, 'region');
@@ -79,24 +110,26 @@ function EditProfileList(props) {
 					);
 				})}
 			</List>
-			<Button
-				size="small"
-				variant="outlined"
-				color="primary"
-				className={classes.btns}
-				onClick={() => handleSaveEdit(id, listState)}
-			>
-				Guardar
-			</Button>
-			<Button
-				size="small"
-				variant="outlined"
-				color="secondary"
-				className={classes.btns}
-				onClick={setIsEditing}
-			>
-				Cancelar
-			</Button>
+			<div className={classes.btnContainer}>
+				<Button
+					size="small"
+					variant="outlined"
+					color="primary"
+					className={classes.btns}
+					onClick={() => handleSaveEdit(id, editingList)}
+				>
+					Guardar
+				</Button>
+				<Button
+					size="small"
+					variant="outlined"
+					color="secondary"
+					className={classes.btns}
+					onClick={setIsEditing}
+				>
+					Cancelar
+				</Button>
+			</div>
 		</Paper>
 	);
 }

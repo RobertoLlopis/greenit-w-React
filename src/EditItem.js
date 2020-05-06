@@ -15,7 +15,26 @@ import { YellowIcon } from './styles/styledComponents';
 
 import EditItemForm from './EditItemForm';
 
-export default function EditItem(props) {
+const styles = (theme) => ({
+	checkBox: {
+		[theme.breakpoints.down('sm')]: { padding: '0.2em' }
+	},
+	itemText: {
+		[theme.breakpoints.down('sm')]: { paddingRight: '40%' }
+	},
+	iconContainer: {
+		display: 'flex',
+		alignItems: 'center',
+		[theme.breakpoints.down('sm')]: { width: 'fit-content', padding: '0.2em' }
+	},
+	icon: {
+		paddingBottom: '0.2em',
+		paddingRight: '0.8em',
+		[theme.breakpoints.down('sm')]: { paddingRight: 0 }
+	}
+});
+
+function EditItem(props) {
 	const {
 		item,
 		prevItemsDone,
@@ -23,7 +42,8 @@ export default function EditItem(props) {
 		sortedRegion,
 		replaceItem,
 		deleteItem,
-		handleItemDone
+		handleItemDone,
+		classes
 	} = props;
 	const [
 		isEditingItem,
@@ -46,21 +66,23 @@ export default function EditItem(props) {
 						checked={done}
 						color="primary"
 						onChange={handleChange}
+						className={classes.checkBox}
 					/>
 					<ListItemText
 						primary={`${item}`}
+						className={classes.itemText}
 						style={{
 							textDecoration: done ? 'line-through' : 'none'
 						}}
 					/>
-					<ListItemSecondaryAction>
+					<ListItemSecondaryAction className={classes.iconContainer}>
 						{sortedRegion.includes(item) && (
-							<YellowIcon>
+							<YellowIcon className={classes.icon}>
 								<NearMeIcon />
 							</YellowIcon>
 						)}
 						{sortedTemp.includes(item) && (
-							<Icon color="primary">
+							<Icon color="primary" className={classes.icon}>
 								<EventAvailableIcon />
 							</Icon>
 						)}
@@ -82,3 +104,4 @@ export default function EditItem(props) {
 		</ListItem>
 	);
 }
+export default withStyles(styles)(EditItem);

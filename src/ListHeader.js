@@ -36,10 +36,15 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(function ListHeader(props) {
-	const { listState, classes } = props;
+	const { listState, editing, classes } = props;
 	const { time, selection } = listState;
 	return (
 		<div className={classes.titleContainer}>
+			{editing === true && (
+				<Typography variant="h6" component="h2">
+					Editando la lista realizada el
+				</Typography>
+			)}
 			<Typography gutterBottom variant="overline" component="h2">
 				{time}
 			</Typography>

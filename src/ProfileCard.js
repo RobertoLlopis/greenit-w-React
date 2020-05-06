@@ -69,7 +69,7 @@ function ProfileCard(props) {
 						title="Recipe"
 					/>
 					<CardContent className={classes.content}>
-						<ListHeader listState={{ time, selection }} />
+						<ListHeader listState={{ time, selection }} editing={false} />
 						<List key={`list-${id}`} className={classes.contentList}>
 							{foodArr.map((item, i) => {
 								let sortedTemp = sort(selection, 'temp');

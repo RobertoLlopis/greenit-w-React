@@ -11,7 +11,19 @@ import useToggleState from './hooks/useToggleState';
 import { getSavedList } from './AppHelpers';
 
 const styles = (theme) => ({
-	root: { textAlign: 'center' }
+	root: {
+		textAlign: 'center',
+		minHeight: '95vh',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		margin: 'auto 2rem',
+		[theme.breakpoints.down('sm')]: { margin: 0 }
+	}
+	/* editionPaper: {
+		display: 'flex',
+		alignItems: 'center'
+	} */
 	/* grid: { display: 'grid' }, */
 	/* gridItem: {
 		justifySelf: 'center'
@@ -44,11 +56,14 @@ function MyProfile(props) {
 	] = useState({ list: [] });
 	const { savedList } = personalList;
 	const handleEdit = (id, editedList) => {
-		savedList.map((list) => list[0] === id && (list = editedList));
-		console.log('edited', savedList);
-		setPersonalList({ ...personalList, savedList: savedList });
+		console.log(editedList, id);
+		let updatedSavedList = savedList.map(
+			(list, i) => (list[0] === id ? (savedList[i] = editedList) : list)
+		);
+		console.log('edited', updatedSavedList);
+		setPersonalList({ ...personalList, savedList: updatedSavedList });
 		window.localStorage.clear();
-		window.localStorage.setItem('savedList', JSON.stringify(savedList));
+		window.localStorage.setItem('savedList', JSON.stringify(updatedSavedList));
 		setIsEditing();
 		setEdited();
 	};
@@ -68,43 +83,52 @@ function MyProfile(props) {
 	};
 	return (
 		<Fragment>
+			<Navbar />
 			<div className={classes.root}>
-				<Navbar />
-				<h1 style={{ textAlign: 'center' }}>Mi perfil</h1>
-				<h3 style={{ textAlign: 'left', paddingLeft: '2rem' }}>
-					Mis listas guardadas:
-				</h3>
 				{isEditing && (
 					<EditProfileList
 						list={editingList.list}
 						setIsEditing={setIsEditing}
 						handleSaveEdit={handleEdit}
+						className={classes.editionPaper}
 					/>
 				)}
-				<Grid
-					key="grid-container"
-					container
-					spacing={3}
-					justify="center"
-					alignContent="center"
-					direction="row"
-					className={classes.grid}
-				>
-					{savedList !== null ? (
-						savedList.map((list) => {
-							return (
-								<ProfileCard
-									key={list[0]}
-									list={list}
-									handleDelete={handleDelete}
-									changeToEdit={changeToEdit}
-								/>
-							);
-						})
+				{!isEditing &&
+					(savedList !== null ? (
+						<Fragment>
+							<h1 style={{ textAlign: 'center' }}>Mi perfil</h1>
+							<h3
+								style={{
+									textAlign: 'center'
+								}}
+							>
+								{' '}
+								Mis listas guardadas:
+							</h3>
+							<Grid
+								key="grid-container"
+								container
+								spacing={3}
+								justify="center"
+								alignContent="center"
+								direction="row"
+								className={classes.grid}
+							>
+								{savedList.map((list) => {
+									return (
+										<ProfileCard
+											key={list[0]}
+											list={list}
+											handleDelete={handleDelete}
+											changeToEdit={changeToEdit}
+										/>
+									);
+								})}
+							</Grid>
+						</Fragment>
 					) : (
 						<h1>Subnormal incluye algo en el storage!</h1>
-					)}
-				</Grid>
+					))}
 			</div>
 			<Fragment>
 				<MySnackbar

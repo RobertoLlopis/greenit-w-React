@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter, Route, Switch } from 'react-router';
-import { createBrowserHistory } from 'history';
+import { Route, Switch } from 'react-router';
 import { ProfileProvider } from './contexts/ProfileContext';
 
 import Home from './Home';
