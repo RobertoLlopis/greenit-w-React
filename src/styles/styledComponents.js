@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Icon } from '@material-ui/core';
+import { Checkbox, Icon, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 export const GreenCheckbox = withStyles({
@@ -14,3 +14,13 @@ export const YellowIcon = withStyles({
 		paddingRight: '2px'
 	}
 })((props) => <Icon {...props} />);
+export const GreenButton = withStyles({
+	root: {
+		color: 'white',
+		backgroundColor: '#37a82a',
+		'&:hover': {
+			backgroundColor: '#15490d',
+			border: '1px solid white'
+		}
+	}
+})((props) => <Button color="default" {...props} />);

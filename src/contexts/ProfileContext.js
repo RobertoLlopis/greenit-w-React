@@ -3,7 +3,6 @@ import React, { createContext, useState } from 'react';
 export const ProfileContext = createContext({});
 
 export function ProfileProvider(props) {
-	console.log(window.localStorage.getItem('savedList'));
 	const [
 		makingList,
 		setMakingList

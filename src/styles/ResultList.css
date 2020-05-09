@@ -1,0 +1,93 @@
+.result-form-root {
+	width: 95%;
+	background-color: #FFFF;
+	border-radius: 10px;
+	margin: 0 auto;
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-start;
+
+	/* border: 2px solid grey; */
+}
+.list-div {
+	width: 65%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	overflow-y: scroll;
+	max-height: 450px;
+}
+.list-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 1rem;
+	padding-bottom: 2.5rem;
+}
+.div-shoppingList {
+	width: intrinsic; /* Safari/WebKit uses a non-standard name */
+	width: -moz-max-content; /* Firefox/Gecko */
+	width: -webkit-max-content; /* Chrome */
+	padding: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	overflow-y: scroll;
+	max-height: 400px;
+}
+.list .list-shopping {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.list-shopping {
+	width: 100%;
+	width: -moz-available; /* WebKit-based browsers will ignore this. */
+	width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+	width: stretch;
+}
+.itemText-shopping {
+	padding-right: 20px;
+}
+@media (max-width: 1150px) {
+	.root {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.list-div {
+		white-space: normal;
+		max-height: 400px;
+	}
+}
+
+@media (max-width: 600px) {
+	.result-form-root {
+		flex-direction: column;
+		align-items: center;
+		margin-top: 0.5rem;
+		width: 100%;
+		padding: 0.5rem 0;
+	}
+	.list-div {
+		width: 80%;
+		max-height: 250px;
+	}
+	.div-shoppingList {
+		width: 96%;
+		padding: 5px;
+		max-height: 400px;
+		justify-content: flex-start;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.list-shopping {
+		text-overflow: ellipsis;
+		width: 90%;
+		white-space: break-spaces;
+	}
+}

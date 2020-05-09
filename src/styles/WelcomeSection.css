@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css?family=Prompt:300,400,700,900&display=swap&subset=latin-ext");
+
+/* $main-clr: purple;
+$nav-dark-clr: darken($main-clr, 15%);
+$cta-clr: orchid;
+ */
+
+.welcome-root {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.header-container {
+	/* width: 100vw */
+}
+.header-img {
+	width: 95vw;
+	border-radius: 10px;
+	margin-top: 1.5rem;
+}
+.welcome-title {
+	color: rgb(233, 233, 233);
+	text-shadow: 1px 1px 2px rgba(11, 56, 16, 0.87);
+	padding: 4rem 1rem;
+}
+.slider {
+	height: 12rem;
+	width: 70%;
+	padding-top: 1.5rem;
+	background-color: #ffffff;
+	border-radius: 10px;
+}
+.slide-div {
+	height: auto;
+	display: flex;
+	justify-content: center;
+}
+.inner-slide-div {
+	max-width: 700px;
+	padding: 2.5rem;
+	height: fit-content;
+}
+.inner-slide-h3 {
+	width: 100%;
+}
+
+@media (max-width: 600px) {
+	.slider {
+		height: 17rem;
+		width: 100%;
+		padding-top: 1.75rem;
+	}
+	.inner-slide-p {
+		max-width: 250px;
+	}
+	.previousButton {
+		opacity: 40%;
+		cursor: pointer;
+	}
+	.nextButton {
+		opacity: 40%;
+		cursor: pointer;
+	}
+	.welcome-header {
+		font-size: 2.75rem !important;
+	}
+}

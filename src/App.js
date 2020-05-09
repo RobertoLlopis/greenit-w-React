@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router';
 import { ProfileProvider } from './contexts/ProfileContext';
 
-import Home from './Home';
-import MyProfile from './MyProfile';
+import Home from './components/home/Home';
+import MyProfile from './components/myProfile/MyProfile';
 
 function App() {
 	const [
