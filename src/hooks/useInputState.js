@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import useToggleState from './useToggleState';
 
 export default function useInputState(initialVal) {
 	const [
