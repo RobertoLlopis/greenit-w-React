@@ -124,6 +124,7 @@ export default function ShoppingListButtoms(props) {
 			</div>
 			<MySnackbar
 				open={open}
+				link
 				handleClose={handleClose}
 				msg="Has guardado tu lista de la compra"
 			/>

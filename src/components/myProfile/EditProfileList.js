@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import ListHeader from './ListHeader';
 import EditItem from './EditItem';
-import AddingItemForm from './AddingItemForm';
+import EditItemForm from './EditItemForm';
 import useToggleState from '../../hooks/useToggleState';
 import { sort } from '../../AppHelpers';
 import { styles } from '../../styles/EditProfileListStyles';
@@ -52,10 +52,12 @@ function EditProfileList(props) {
 		setEdition();
 	};
 	const addItem = (item) => {
-		foodArr.push(item);
-		console.log(foodArr);
-		editingList[2] = foodArr;
-		setEdition();
+		if (item !== undefined) {
+			foodArr.push(item);
+			console.log(foodArr);
+			editingList[2] = foodArr;
+			setEdition();
+		}
 	};
 	const itemDone = (item) => {
 		if (!done.includes(item) || done === []) {
@@ -101,7 +103,11 @@ function EditProfileList(props) {
 						</Icon>
 					</div>
 				) : (
-					<AddingItemForm addItem={addItem} setIsAdding={setIsAdding} />
+					<EditItemForm
+						add
+						submitFunction={addItem}
+						setDisplayBool={setIsAdding}
+					/>
 				)}
 			</div>
 			<div className={classes.btnContainer}>

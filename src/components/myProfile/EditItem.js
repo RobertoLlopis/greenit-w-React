@@ -79,8 +79,8 @@ function EditItem(props) {
 			) : (
 				<EditItemForm
 					prevValue={item}
-					replaceItem={replaceItem}
-					setIsEditingItem={setIsEditingItem}
+					submitFunction={replaceItem}
+					setDisplayBool={setIsEditingItem}
 				/>
 			)}
 		</ListItem>
