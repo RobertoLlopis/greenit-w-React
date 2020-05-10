@@ -1,3 +1,5 @@
+import { green } from '@material-ui/core/colors';
+
 export const styles = (theme) => ({
 	root: {
 		margin: '0 auto',
@@ -18,10 +20,14 @@ export const styles = (theme) => ({
 	},
 	btnContainer: {
 		margin: 'auto',
-		paddingTop: '2rem',
+		paddingTop: '1rem',
 		width: '40%',
 		display: 'flex',
 		justifyContent: 'space-around',
 		[theme.breakpoints.down('xs')]: { width: '85%' }
+	},
+	addContainer: {
+		color: green[500],
+		cursor: 'pointer'
 	}
 });

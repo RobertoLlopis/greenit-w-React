@@ -1,14 +1,13 @@
 import React, { Fragment, useState } from 'react';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import { Paper } from '@material-ui/core';
+import { List, Button, Divider, Icon, Paper } from '@material-ui/core/';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withStyles } from '@material-ui/core/styles';
-
-import { sort } from '../../AppHelpers';
 
 import ListHeader from './ListHeader';
 import EditItem from './EditItem';
+import AddingItemForm from './AddingItemForm';
+import useToggleState from '../../hooks/useToggleState';
+import { sort } from '../../AppHelpers';
 import { styles } from '../../styles/EditProfileListStyles';
 
 function EditProfileList(props) {
@@ -26,6 +25,10 @@ function EditProfileList(props) {
 			list[5]
 		]
 	});
+	const [
+		isAdding,
+		setIsAdding
+	] = useToggleState();
 	const { editingList } = listState;
 	let id = editingList[0];
 	let time = editingList[1];
@@ -33,27 +36,37 @@ function EditProfileList(props) {
 	let selection = editingList[3];
 	let done = editingList[5];
 
+	const setEdition = () => {
+		setListState({ ...listState, editingList: editingList });
+	};
+
 	const deleteItem = (item) => {
 		let remainFoodArr = foodArr.filter((f) => f !== item);
 		editingList[2] = remainFoodArr;
-		setListState({ ...listState, editingList: editingList });
+		setEdition();
 	};
 	const replaceItem = (prevItem, newItem) => {
 		let idxOfItem = foodArr.indexOf(prevItem);
 		foodArr[idxOfItem] = newItem;
 		editingList[2] = foodArr;
-		setListState({ ...listState, editingList: editingList });
+		setEdition();
+	};
+	const addItem = (item) => {
+		foodArr.push(item);
+		console.log(foodArr);
+		editingList[2] = foodArr;
+		setEdition();
 	};
 	const itemDone = (item) => {
 		if (!done.includes(item) || done === []) {
 			done.push(item);
 			editingList[5] = done;
-			setListState({ ...listState, editingList: editingList });
+			setEdition();
 		}
 		else {
 			let remainDone = done.filter((i) => i !== item);
 			editingList[5] = remainDone;
-			setListState({ ...listState, editingList: editingList });
+			setEdition();
 		}
 	};
 
@@ -80,6 +93,17 @@ function EditProfileList(props) {
 					);
 				})}
 			</List>
+			<div style={{ position: 'relative' }}>
+				{!isAdding ? (
+					<div className={classes.addContainer}>
+						<Icon onClick={() => setIsAdding()}>
+							<AddCircleIcon fontSize="large" />
+						</Icon>
+					</div>
+				) : (
+					<AddingItemForm addItem={addItem} setIsAdding={setIsAdding} />
+				)}
+			</div>
 			<div className={classes.btnContainer}>
 				<Button
 					size="small"
